@@ -59,7 +59,7 @@ class Player(color:(Float,Float,Float)){
 		effectpos.orientation.load(pos.orientation)
 		effectpos.moveRelative(x, -y, -0.01f)
 
-		EffectManager.addSplash(effectpos)
+		//EffectManager.addSplash(effectpos)
 
 	}
 }

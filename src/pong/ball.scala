@@ -28,15 +28,52 @@ object TheBall{
 
 				if(abs(x+vx) + size > GameField.size){
 					h1 = -1.05f
-					if(x>0)
+					val splashpos = new Pos3d()
+					if(x>0){
 						GameField.right.collision
-					else
+						splashpos.moveAbsolute(pos._1+size, pos._2, pos._3)
+						splashpos.rotate(Pi.toFloat/2, 0, 1, 0)
+						EffectManager.addSplash(splashpos)
+					}
+					else{
 						GameField.left.collision
+						splashpos.moveAbsolute(pos._1-size, pos._2, pos._3)
+						splashpos.rotate(Pi.toFloat/2, 0, -1, 0)
+						EffectManager.addSplash(splashpos)
+					}
 				}
-				if(abs(y+vy) + size > GameField.size)
+				if(abs(y+vy) + size > GameField.size){
+					val splashpos = new Pos3d()
+					if(y>0){
+						GameField.front.collision
+						splashpos.moveAbsolute(pos._1, pos._2+size, pos._3)
+						splashpos.rotate(Pi.toFloat/2, 1, 0, 0)
+						EffectManager.addSplash(splashpos)
+					}
+					else{
+						GameField.back.collision
+						splashpos.moveAbsolute(pos._1, pos._2-size, pos._3)
+						splashpos.rotate(Pi.toFloat/2, -1, 0, 0)
+						EffectManager.addSplash(splashpos)
+					}
 					h2 = -1.05f
-				if(abs(z+vz) + size > GameField.size)
+				}
+				if(abs(z+vz) + size > GameField.size){
+					val splashpos = new Pos3d()
+					if(y>0){
+						GameField.front.collision
+						splashpos.moveAbsolute(pos._1, pos._2, pos._3+size)
+						splashpos.rotate(Pi.toFloat/2, 1, 0, 0)
+						EffectManager.addSplash(splashpos)
+					}
+					else{
+						GameField.back.collision
+						splashpos.moveAbsolute(pos._1, pos._2, pos._3-size)
+						splashpos.rotate(Pi.toFloat/2, -1, 0, 0)
+						EffectManager.addSplash(splashpos)
+					}
 					h3 = -1.05f
+				}
 
 				vel = (vx*h1,vy*h2,vz*h3)
 		}

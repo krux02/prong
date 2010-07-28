@@ -6,6 +6,8 @@
 package pong
 
 import org.lwjgl.opengl.GL11._
+import scala.math._
+import org.newdawn.slick._
 
 abstract class Effect{
 	def update
@@ -14,12 +16,12 @@ abstract class Effect{
 }
 
 class Splash(pos:Pos3d) extends Effect{
-	var size=0.0f
+	var size=0f
 	var alpha=1.0f
 	var rotation=0.0f
 
 	override def update = {
-		size += 0.2f
+		size = 1-(1-size)*0.95f
 		alpha -= 0.025f
 		rotation += 0.5f
 		this
@@ -34,15 +36,11 @@ class Splash(pos:Pos3d) extends Effect{
 
 		glScalef(size,size,size)
 
-		for(i <- 1 to 9){
-			glRotatef(rotation, 0, 0, 1)
-			glBegin(GL_LINES)
-			glVertex2f(1, 1)
-			glVertex2f(-1, -1)
-			glVertex2f(1, -1)
-			glVertex2f(-1, 1)
-			glEnd
+		glBegin(GL_LINES)
+		for(i <- 1 to 36){
+			glVertex2d(sin((10*i).toRadians),cos((10*i).toRadians))
 		}
+		glEnd
 		glPopMatrix
 	}
 
@@ -54,7 +52,7 @@ class Splash(pos:Pos3d) extends Effect{
 
 object EffectManager {
 	var effects:List[Effect] = Nil
-	def draw(){	
+	def draw(){
 		for(e <- effects){
 			e.update
 			e.draw

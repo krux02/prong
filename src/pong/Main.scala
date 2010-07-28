@@ -140,8 +140,9 @@ object Main{
 
 
 		glDisable(GL_LIGHTING)
-		
-		GameField.draw
+
 		EffectManager.draw
+		GameField.draw
+		
 	}
 }
