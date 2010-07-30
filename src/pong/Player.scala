@@ -49,9 +49,14 @@ class Player(color:(Float,Float,Float)){
 		alpha = 0.1f + (alpha-0.1f) * 0.95f
 		glColor4f(color._1, color._2, color._3, alpha)
 		glDisable(GL_LIGHTING)
-		centeredRect(size,size)
-		glEnable(GL_LIGHTING)
 
+
+		glEnable(GL_TEXTURE_2D)
+		textureManager.glas.bind
+		centeredRect(size,size)
+		glDisable(GL_TEXTURE_2D)
+
+		glEnable(GL_LIGHTING)
 		glPopMatrix
 
 		val effectpos = new Pos3d

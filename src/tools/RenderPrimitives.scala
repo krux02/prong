@@ -7,6 +7,8 @@ package tools
 
 import org.lwjgl.opengl.GL11._
 import org.lwjgl.util.glu._
+import org.newdawn.slick.opengl.Texture
+import org.lwjgl.BufferUtils.createFloatBuffer
 
 object RenderPrimitives {
 	val quadric:Quadric = new Quadric
@@ -47,9 +49,13 @@ object RenderPrimitives {
 		glEnd
 
 		glBegin(GL_QUADS)
+			glTexCoord2f(0,0)
 			glVertex2f(-sx,-sy)
+			glTexCoord2f(1,0)
 			glVertex2f(sx,-sy)
+			glTexCoord2f(1,1)
 			glVertex2f(sx,sy)
+			glTexCoord2f(0,1)
 			glVertex2f(-sx,sy)
 		glEnd
 	}
@@ -97,3 +103,14 @@ object RenderPrimitives {
 		glEnd
 	}
 }
+
+
+
+/*
+ * val vertices = createFloatBuffer(2*4)
+ * vertices.put(Array(w,h, 0f,h, 0f,0f, w,0f))
+ * vertices.rewind
+ * glEnableClientState(GL_VERTEX_ARRAY)
+ * glVertexPointer(2, 0, vertices)
+ * glDrawArrays(GL_QUADS,0,4)
+ */
